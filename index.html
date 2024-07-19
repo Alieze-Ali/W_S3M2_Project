@@ -27,9 +27,20 @@
     // 🧠 Examples of usage:
     // processSingleLearner({ name: "Elisabeth", lovesJS: 1 }) // should return { name: "Elisabeth", lovesJS: true }
     // processSingleLearner({ name: "Pete", age: 23, lovesJS: 0 }) // should return { name: "Pete", age: 23, lovesJS: false }
-    const processSingleLearner = () => {
-
-    }
+    // Step 1: Pass the obj
+    // Step 2: Add conditional logic
+      // a: if learner.lovesJS == 0 : set learner.lovesJS = false;
+      // b: if learner.lovesJS == 1 : set learner.lovesJS = true;
+    // Step 3: return learner
+    const processSingleLearner = (learner) => {
+        if (learner.lovesJS === 0) {
+          learner.lovesJS = false;
+        } else if ( learner.lovesJS === 1) {
+          learner.lovesJS = true;
+         }
+         return learner; 
+        }
+    
 
     // 👉 CHALLENGE 2
     // 🧠 The function processLearnerLoop takes an array of learner objects as its argument, and returns it after some modifications.
@@ -41,9 +52,30 @@
     // ❗ Notes:
     // 🧠 There are many approaches to this problem: using a loop, using forEach, using map...
     // 🧠 Solve this challenge using a for/in loop or a for loop.
-    const processLearnersLoop = () => {
-
+    // Step 1: Pass the array
+    // Step 2: Initiate result arr
+    // Step 3: Create for/in loop to loop over learner array
+    // Step 4: declare a new var for learner = learner[idx] to get the current learner object (not the index position #)
+    // Step 5: Add conditional logic
+        // a: if learner.lovesJS === 0 : learner.lovresJS = false
+        // b: else if
+        // c: learner.lovesJS === 1: learner.lovesJS = true
+    // Step 6: modify the learner object with adding push to result and passing in learner
+    // Step 7: Don't forget to return the result array
+    const processLearnersLoop = (learners) => {
+      let result = [];
+      for (let idx in learners) {
+        let learner = learners[idx];
+        if(learner.lovesJS === 0) {
+            learner.lovesJS = false;
+        } else if (learner.lovesJS === 1) {
+          learner.lovesJS = true;
+        }
+        result.push(learner);
+      }
+      return result; 
     }
+
 
     // 👉 CHALLENGE 3
     // 🧠 The function processLearnerForEach takes an array of learner objects as its argument, and returns it after some modifications.
@@ -51,8 +83,25 @@
     // ❗ Notes:
     // 🧠 Solve this challenge using the forEach method of the learners array.
     // 🧠 Use arrow functions whenever possible.
-    const processLearnerForEach = () => {
-
+    // Step 1: Pass learner obj argument
+    // Step 2: Assign an empty results array
+    // Step 3: loop through obj with forEach
+    // Step 4: Create a copy of the learner object with spread operator ...
+      // note: this is so you don't mutate the original object
+    // Step 5: Add conditional logic: (see above)
+    // Wow! I was really close on that one!!
+    const processLearnerForEach = (learners) => {
+      let result = []
+      learners.forEach(learner => {
+        let learnerCopy = {... learner}; 
+        if(learner.lovesJS === 0) {
+            learner.lovesJS = false;
+        } else if (learner.lovesJS === 1) {
+          learner.lovesJS = true;
+        }
+        result.push(learner)
+      })
+      return result; 
     }
 
     // 👉 CHALLENGE 4
@@ -61,8 +110,26 @@
     // ❗ Notes:
     // 🧠 Solve this challenge using the map method of the learners array.
     // 🧠 Use arrow functions.
-    const processLearnerMap = () => {
+    // Step 1: Pass learners obj arr to function
+    // Step 2: Assign a var to learners.map 
+    // Step 3: Pass learner into map method
+    // Step 4: Create a copy of the learner object
+    // Step 5: Add conditional logic as above
+      // Note: be sure to compare the new var copy learnerCopy
+    // Step 5: Return the modified copy
+    // Step 6: Return learnerProcessed
+    const processLearnerMap = (learners) => {
+       let learnerProcessed = learners.map( learner => {
+        let learnerCopy = {... learner};
 
+        if(learnerCopy.lovesJS === 0) {
+          learnerCopy.lovesJS = false;
+        } else if (learnerCopy.lovesJS === 1) {
+          learnerCopy.lovesJS = true;
+        }
+        return learnerCopy;
+       })
+       return learnerProcessed;
     }
 
     // 👉 CHALLENGE 5
@@ -73,7 +140,27 @@
     // ❗ Notes:
     // 🧠 Solve this challenge using the forEach method of the learners array.
     // 🧠 You will need to declare a result array into which you push learners from inside your forEach loop.
-    const getJavaScriptLoversForEach = () => {
+    // Step 1: Pass the learners 
+    // Step 2: Assign result array to hold our JS lovers
+    // Step 3: Iterate over learners with forEach method 
+      // note: we are looping over the current learner
+    // Step 4: Add conditional logic
+        // a: if learners that love JS is true OR  learners that love JS is 1
+    // Step 5: push that learner into your result array (ie add push method to your result array)
+    // Step 6: Add another if statement:
+        // a: if the length of the result is strictly 0
+        // b: return the string 'no JS lovers here!'
+    const getJavaScriptLoversForEach = (learners) => {
+        let result = [];
+        learners.forEach(learner => {
+          if(learner.lovesJS === true || learner.lovesJS === 1) {
+            result.push(learner)
+          } // note: we must loop through the learners array first to detirmine if there are any learners that love JS to put into the result array 
+        });
+        if ( result.length === 0 ) {
+          return 'no JS lovers here!' // if there are no results pushed into the array the length of the results array will be zero, that's why this if statement goes 2nd
+        }
+        return result
 
     }
 
@@ -82,8 +169,22 @@
     // 🧠 It should work exactly the same as the getJavaScriptLoversForEach function above.
     // ❗ Notes:
     // 🧠 Solve this challenge using the filter method of the learners array.
-    const getJavaScriptLoversFilter = () => {
-
+    // Step 1: Pass the learner obj arr
+    // Step 2: Declare a var for the filtered learners, Assign to to the learners with a filter method on it
+    // Step 3: Pass a learner function into the filter method
+      // Note: This function should return ture for elements you want to keep (ie learners that love JS), and false for those you want to discard
+    // Step 4: Add the conditinal logic to the function as a return (not if)
+      // a: return learners that love JS as true OR learners that love JS with a strict equal of 1
+    // Step 5: Add the rest of the conditons if the filtered learners length is striclty 0: return 'no JS lovers here!'
+    // Step 6: Finally return filtered learners
+    const getJavaScriptLoversFilter = (learners) => {
+      let filteredLearners = learners.filter(learner => {
+       return learner.lovesJS === true || learner.lovesJS === 1;         
+        })
+        if (filteredLearners.length === 0 ) {
+          return 'no JS lovers here!' 
+        }
+        return filteredLearners;
     }
 
     // 👉 CHALLENGE 7
